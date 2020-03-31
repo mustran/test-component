@@ -1,31 +1,24 @@
-import React, {
-    CSSProperties,
-    DetailedHTMLProps,
-    SelectHTMLAttributes
-} from "react";
+import React, { CSSProperties, ButtonHTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
 import ButtonWrapper from "./ButtonWrapper";
 
 export type Size = "xs" | "sm" | "md" | "lg";
 
 type ContentProps = {
-    icon?: Node | null;
+    icon?: ReactNode| null;
     iconPosition?: string;
-    children: any;
+    children?: any;
 };
 
-// Omit<
-//   DetailedHTMLProps<SelectHTMLAttributes<ContentProps>, ContentProps>,
-//   'ref'
-// >
-
-export type Props = ContentProps & {
-    buttonModifiers?: Array<string>;
-    size?: Size;
-    style?: CSSProperties;
-    className?: string;
-    fullWidth?: boolean;
-};
+export type Props = ButtonHTMLAttributes<HTMLButtonElement> &
+    ContentProps & {
+        buttonModifiers?: Array<string>;
+        sizeType?: Size;
+        style?: CSSProperties;
+        className?: string;
+        fullWidth?: boolean;
+        fullHeight?: boolean;
+    };
 
 const ContentHolder = styled.span`
     padding: 0.2rem;
@@ -54,29 +47,31 @@ const Content = ({
 };
 
 const Button = ({
-    size = "md",
-    buttonModifiers = [],
+    sizeType = "md",
+    buttonModifiers,
     className = "",
     style,
     icon,
     iconPosition,
     children,
-    fullWidth
-}: Props) => {
-    return (
-        <ButtonWrapper
-            className={className}
-            style={style}
-            size={size}
-            modifiers={buttonModifiers}
-            fullWidth={fullWidth}
-        >
-            <Content icon={icon} iconPosition={iconPosition}>
-                {" "}
-                {children}{" "}
-            </Content>
-        </ButtonWrapper>
-    );
-};
+    fullWidth,
+    fullHeight,
+    ...rest
+}: Props) => (
+    <ButtonWrapper
+        className={className}
+        style={style}
+        sizeType={sizeType}
+        modifiers={buttonModifiers}
+        fullWidth={fullWidth}
+        fullHeight={fullHeight}
+        {...rest}
+    >
+        <Content icon={icon} iconPosition={iconPosition}>
+            {" "}
+            {children}{" "}
+        </Content>
+    </ButtonWrapper>
+);
 
 export default Button;

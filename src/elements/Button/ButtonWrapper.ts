@@ -31,7 +31,7 @@ const modifiers = {
       border-color: ${colors.green};
     }
   `,
-    buttonPrimary: ({ theme }: any) => `
+    buttonPrimary: ({ theme }: Record<string, any>) => `
     color: ${theme.palette.primary.main};
     border-color: ${theme.palette.primary.main};
     background: ${transparentize(0.94, theme.palette.primary.main)};
@@ -85,7 +85,7 @@ const modifiers = {
       border-color: ${colors.green};
     }
   `,
-    buttonLink: ({ theme }: any) => `
+    buttonLink: ({ theme }: Record<string, any>) => `
     color: ${theme.palette.primary.main};
     border: none;
     background: transparent;
@@ -105,11 +105,11 @@ const modifiers = {
 };
 
 type ButtonWrapperProps = {
-    size: Size;
+  sizeType: Size;
     disabled?: boolean;
     fullWidth?: boolean;
     fullHeight?: boolean;
-    modifiers: any;
+    modifiers?: Array<string>;
 };
 
 const ButtonWrapper = styled.button<ButtonWrapperProps>`
@@ -134,7 +134,7 @@ const ButtonWrapper = styled.button<ButtonWrapperProps>`
         color: ${colors.skyBlue};
     }
 
-    ${switchProp("size", {
+    ${switchProp("sizeType", {
         xs: css`
             font-size: ${fontSizes("extraSmall")};
             padding: 0.1875rem 0.25rem;
@@ -177,7 +177,8 @@ const ButtonWrapper = styled.button<ButtonWrapperProps>`
 `;
 
 ButtonWrapper.defaultProps = {
-    size: "md"
+  sizeType: "md",
+    modifiers: [""]
 };
 
 export default ButtonWrapper;
