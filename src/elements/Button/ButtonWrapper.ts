@@ -178,7 +178,7 @@ const ButtonWrapper = styled.button<ButtonWrapperProps>`
 
 ButtonWrapper.defaultProps = {
   sizeType: "md",
-    modifiers: [""]
+  modifiers: [""]
 };
 
 export default ButtonWrapper;
